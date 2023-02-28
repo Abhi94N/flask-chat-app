@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="message-box">
+    <h2>Chat Room: {{room}}</h2>
+    <div class="messages" id="messages"></div>
+    <div class="inputs">
+        <input type="text" rows="3" placeholder="Message" name="message" id="message"/>
+        <button type="button" name="send" id="send-btn" onClick="sendMessage()">Send</button>
+    </div>
+</div>
+<script type="text/javascript">
+    //cdn library for socketio  in base.html gives access to io() function
+    var socketio = io();
+
+    const sendMessage = () => {
+        console.log("send")
+    }
+
+</script>
+{% endblock %}

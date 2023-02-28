@@ -22,4 +22,5 @@
 ```html
 {% extends 'base.html' %}
 ```
-11. 
+11. add error messages by using if statement blocks
+12. session stores temporary data
