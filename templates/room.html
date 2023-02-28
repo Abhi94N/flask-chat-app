@@ -14,6 +14,28 @@
     //cdn library for socketio  in base.html gives access to io() function
     var socketio = io();
 
+    const messages = document.getElementById("messages")
+
+    const createMessage = (name, msg) => {
+        const content = `
+        <div>
+            <span>
+                <strong>${name}</strong>: ${msg}
+            </span>
+            <span class="muted">
+                <!-- when the data is recieved for reciever -->
+                ${new Date().toLocaleString()}
+            </span>
+        </div>`
+
+        // add message html
+        messages.innerHTML += content
+    };
+
+    socketio.on("message", (data) => {
+        createMessage(data.name, data.message)
+    })
+
     const sendMessage = () => {
         console.log("send")
     }
