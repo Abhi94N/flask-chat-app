@@ -72,7 +72,8 @@ def room():
 
     
     
-    return render_template("room.html", code=room)
+    # messages persiste the message for the duration of the room session
+    return render_template("room.html", code=room, messages=rooms[room]["messages"])
 
 @socketio.on("connect")
 def connect(auth):
