@@ -72,7 +72,7 @@ def room():
 
     
     
-    return render_template("room.html")
+    return render_template("room.html", code=room)
 
 @socketio.on("connect")
 def connect(auth):
@@ -107,6 +107,24 @@ def disconnect():
             del rooms[room]
     send({"name": name, "message": "has left the room"}, to=room)
     print(f"{name} has left the room {room}")
+
+# send messages
+@socketio.on("message")
+def message(data):
+    room = session.get("room")
+    
+    if room not in rooms:
+        return
+
+    content = {
+        "name": session.get("name"),
+        "message": data["data"]
+    }
+    
+    # store history in rooms
+    send(content, to=room)
+    rooms[room]["messages"].append(content)
+    print(f"{session.get('name')} said: {data['data']}")
 
 if __name__ == "__main__":
     socketio.run(app, debug=True)
